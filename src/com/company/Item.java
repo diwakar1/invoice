@@ -1,17 +1,19 @@
 package com.company;
 
-public class Item {
-    private String name;
-    private int quantity;
-    private String Item;
-    private int price;
+import java.util.ArrayList;
 
-    public String getName() {
-        return name;
+public class Item {
+    private String item;
+    private int quantity;
+    private String description;
+    private double price;
+
+    public String getItem() {
+        return item;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setItem(String item) {
+        this.item = item;
     }
 
     public int getQuantity() {
@@ -22,24 +24,53 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public String getItem() {
-        return Item;
+    public String getDescription() {
+        return description;
     }
 
-    public void setItem(String item) {
-        Item = item;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
+
+    }
+    public double total(){
+        double total = getQuantity()*getPrice();
+        return total;
+    }
+
+
+        public double taxableSubTotal(ArrayList<Double> subTotal) {
+            double taxable = 0.0;
+            for (int i = 0; i < subTotal.size(); i++) {
+                taxable += subTotal.get(i);
+            }
+            return taxable;
+        }
+            public double untaxable(){
+                return 0;
+            }
+
+    public double tax(ArrayList<Double> subTotal){
+        double taxRate =6.0;
+        double tax = (taxRate * taxableSubTotal(subTotal))/100;
+        return tax;
+    }
+
+    public String grandTotal(ArrayList<Double> subTotal){
+
+        double total = tax(subTotal)+ taxableSubTotal(subTotal);
+
+        String grandTotal = String.format("%.02f",total);
+        return grandTotal;
     }
 }
-
-
 
 
 
